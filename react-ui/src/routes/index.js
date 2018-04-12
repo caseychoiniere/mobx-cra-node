@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import appConfig from '../appConfig';
+import AuthStore from '../stores/AuthStore';
 import { Container } from 'react-grid-system';
 import Graph from '../containers/Graph.jsx';
 import Header from '../components/Header';
@@ -8,10 +9,16 @@ import Home from '../containers/Home.jsx';
 import LeftNav from '../components/LeftNav.jsx';
 import Login from '../containers/Login.jsx';
 
+const handleAuthentication = (nextState, replace) => {
+    if (/access_token|id_token|error/.test(nextState.location.hash)) {
+        AuthStore.handleAuthentication();
+    }
+};
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
     !appConfig.apiToken && window.sessionStorage.setItem('redirectUrl', window.location.pathname);
     return <Route {...rest} render={(props) =>
-        !!appConfig.apiToken ? (
+        AuthStore.isAuthenticated() ? (
             <Component {...props}/>
         ) : (
             <Redirect to='/login'/>
@@ -33,8 +40,12 @@ export default () => (
             {appConfig.apiToken && <Route component={LeftNav} />}
             <Container fluid className="mainContainer">
                 <Switch>
-                    <LoginRoute path='/login' component={Login} />
-                    <PrivateRoute  path='/graph/:id' component={Graph} />
+                    {/*<LoginRoute path='/login' component={Login} />*/}
+                    <Route path="/login" render={(props) => {
+                        handleAuthentication(props);
+                        return <Login {...props} />
+                    }}/>
+                    {/*<PrivateRoute  path='/graph/:id' component={Graph} />*/}
                     <PrivateRoute exact path='/' component={Home} />
                 </Switch>
             </Container>

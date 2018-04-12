@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceLine,
-    ReferenceDot, Tooltip, CartesianGrid, Legend, Brush, ErrorBar, AreaChart, Area,
-    Label, LabelList } from 'recharts';
+// import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceLine,
+//     ReferenceDot, Tooltip, CartesianGrid, Legend, Brush, ErrorBar, AreaChart, Area,
+//     Label, LabelList } from 'recharts';
 
 class Graph extends Component {
     render() {
@@ -274,31 +274,31 @@ class Graph extends Component {
         return (
             <div>
                 <h2>Graph</h2>
-                <LineChart
-                    width={800}
-                    height={400}
-                    data={data}
-                    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                >
-                    <XAxis dataKey="name" />
-                    <Tooltip />
-                    <CartesianGrid stroke="#f5f5f5" />
-                    <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-                    <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
-                </LineChart>
+                {/*<LineChart*/}
+                    {/*width={800}*/}
+                    {/*height={400}*/}
+                    {/*data={data}*/}
+                    {/*margin={{ top: 5, right: 20, left: 10, bottom: 5 }}*/}
+                {/*>*/}
+                    {/*<XAxis dataKey="name" />*/}
+                    {/*<Tooltip />*/}
+                    {/*<CartesianGrid stroke="#f5f5f5" />*/}
+                    {/*<Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />*/}
+                    {/*<Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />*/}
+                {/*</LineChart>*/}
 
-                <LineChart
-                    width={1200}
-                    height={200}
-                    data={data03}
-                    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                >
-                    <YAxis dataKey="price"/>
-                    <XAxis dataKey="date" />
-                    <Tooltip />
-                    <CartesianGrid stroke="#f5f5f5" />
-                    <Line type="monotone" dataKey="price" stroke="#66BB6A" yAxisId={0} />
-                </LineChart>
+                {/*<LineChart*/}
+                    {/*width={1200}*/}
+                    {/*height={200}*/}
+                    {/*data={data03}*/}
+                    {/*margin={{ top: 5, right: 20, left: 10, bottom: 5 }}*/}
+                {/*>*/}
+                    {/*<YAxis dataKey="price"/>*/}
+                    {/*<XAxis dataKey="date" />*/}
+                    {/*<Tooltip />*/}
+                    {/*<CartesianGrid stroke="#f5f5f5" />*/}
+                    {/*<Line type="monotone" dataKey="price" stroke="#66BB6A" yAxisId={0} />*/}
+                {/*</LineChart>*/}
             </div>
         );
     }

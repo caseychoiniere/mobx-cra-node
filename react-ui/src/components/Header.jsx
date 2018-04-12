@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import AuthStore from '../stores/AuthStore';
 import MainStore from '../stores/MainStore'
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
@@ -12,12 +13,12 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 @observer
 class Header extends Component {
 
-    handleLogout = () => MainStore.handleLogout();
+    handleLogout = () => AuthStore.logout();
 
     toggleNav = () => MainStore.toggleNav();
 
     loggedIn = (props) => (
-        MainStore.appConfig.apiToken ?
+        AuthStore.isAuthenticated() ?
         <IconMenu
             {...props}
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -25,10 +26,9 @@ class Header extends Component {
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         >
             <MenuItem primaryText="Refresh" />
-            <MenuItem primaryText="Help" />
+            <MenuItem primaryText="Help" onClick={() => MainStore.makePlanet()}/>
             <MenuItem primaryText="Sign out" onClick={this.handleLogout}/>
-        </IconMenu> :
-                <FlatButton {...this.props} href={this.createLoginUrl()} label="Login" onClick={this.initiateLogin}/>
+        </IconMenu> : <FlatButton label="Login" onClick={this.initiateLogin}/>
     );
 
     createLoginUrl = () => {
@@ -36,7 +36,7 @@ class Header extends Component {
         return `${appConfig.authServiceUri}&state=${appConfig.serviceId}&redirect_uri=${window.location.href}`
     };
 
-    initiateLogin = () => MainStore.toggleLoading();
+    initiateLogin = () => AuthStore.login();
 
     render() {
         const {appConfig} = MainStore;

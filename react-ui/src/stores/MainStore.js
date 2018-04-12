@@ -23,17 +23,38 @@ export class MainStore {
         this.api = api;
     }
 
-    @action getProjects() {
-        this.loading = true;
-        this.api.getProjects()
-            .then(checkStatus).then((response) => {
-            const results = response.json();
-            const headers = response.headers;
-            return Promise.all([results, headers]);
-        }).then((json) => {
-            this.projects = json[0].results;
-            this.loading = false;
+    // @action getProjects() {
+    //     this.loading = true;
+    //     this.api.getProjects()
+    //         .then(checkStatus).then((response) => {
+    //         const results = response.json();
+    //         const headers = response.headers;
+    //         return Promise.all([results, headers]);
+    //     }).then((json) => {
+    //         this.projects = json[0].results;
+    //         this.loading = false;
+    //     }).catch(ex => this.handleErrors(ex))
+    // }
+
+
+    @action getPlanets() {
+        api.getPlanets()
+            .then(checkStatus)
+            .then(response => response.json())
+            .then((json) => {
+            this.projects = json;
+            console.log(this.projects)
         }).catch(ex => this.handleErrors(ex))
+    }
+
+    @action makePlanet() {
+        api.makePlanet()
+            .then(checkStatus)
+            .then(response => response.json())
+            .then((json) => {
+                this.projects = [...this.projects, json];
+                console.log(this.projects)
+            }).catch(ex => this.handleErrors(ex))
     }
 
     @action checkSessionTimeout() {
@@ -51,9 +72,9 @@ export class MainStore {
 
     @action handleErrors(error) {
         this.loading = false;
-        if (error && error.response && error.response.status) {
+        // if (error && error.response && error.response.status) {
             if (error.response.status === 401) {
-                window.location.href = window.location.protocol + '//' + window.location.host + '/#/login';
+                window.location.href = window.location.protocol + '//' + window.location.host + '/login';
             }
             // else if (error.response.status === 404 && error.response.statusText !== '' && this.appConfig.apiToken) {
             //     window.location.href = window.location.protocol + '//' + window.location.host + '/#/404';
@@ -61,7 +82,7 @@ export class MainStore {
             // } else {
                 // this.displayErrorModals(error);
             // }
-        }
+        // }
     }
 
     @action getAuthProviders() {
