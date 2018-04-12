@@ -15,7 +15,7 @@ export class AuthStore {
     constructor() {
         this.api = api;
         this.auth0 = new auth0.WebAuth({
-            clientID: 'HeZIUdDdXhTOvWxfzHUKFOZtKDI3v772',
+            clientID: process.env.CLIENTID,
             domain: 'securepoint.auth0.com',
             responseType: 'token id_token',
             audience: 'https://morning-dusk-94993.herokuapp.com',
