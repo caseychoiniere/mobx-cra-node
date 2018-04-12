@@ -19,7 +19,7 @@ export class AuthStore {
             domain: 'securepoint.auth0.com',
             responseType: 'token id_token',
             audience: 'https://morning-dusk-94993.herokuapp.com',
-            redirectUri: 'http://localhost:3000/login',
+            redirectUri: 'https://blooming-ridge-83489.herokuapp.com/login',
             scope: 'openid email profile'
         });
         this.authenticated = false;
