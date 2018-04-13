@@ -1,11 +1,13 @@
 import { observable, action } from 'mobx';
-import cookie from 'react-cookies';
 import api from '../api';
 import appConfig from '../appConfig';
 import auth0 from 'auth0-js';
-import { checkStatus } from '../util/fetchUtil';
-import history from '../routes/history';
 import MainStore from './MainStore';
+import runtimeEnv from '@mars/heroku-js-runtime-env';
+
+const localEnv = runtimeEnv();
+
+const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/login' : 'https://blooming-ridge-83489.herokuapp.com/login';
 
 export class AuthStore {
     @observable auth0;
@@ -15,11 +17,11 @@ export class AuthStore {
     constructor() {
         this.api = api;
         this.auth0 = new auth0.WebAuth({
-            clientID: process.env.REACT_APP_CLIENT_ID,
+            clientID: process.env.REACT_APP_CLIENT_ID || localEnv.REACT_APP_CLIENT_ID,
             domain: 'securepoint.auth0.com',
             responseType: 'token id_token',
             audience: 'https://morning-dusk-94993.herokuapp.com',
-            redirectUri: 'https://blooming-ridge-83489.herokuapp.com/login',
+            redirectUri: redirectUri,
             scope: 'openid email profile'
         });
         this.authenticated = false;
@@ -28,7 +30,6 @@ export class AuthStore {
 
     @action getAccessToken() {
         const accessToken = localStorage.getItem('access_token');
-        console.log(accessToken)
         if (!accessToken) {
             throw new Error('No Access Token found');
         }
@@ -42,8 +43,7 @@ export class AuthStore {
                 this.userProfile = profile;
                 this.postUserSession(this.userProfile);
             }
-            console.log(this.userProfile)
-            // cb(err, profile);
+            console.log(err, profile);
         });
     }
 
@@ -51,9 +51,7 @@ export class AuthStore {
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
-                // history.replace('/');
             } else if (err) {
-                // history.replace('/login');
                 window.location.assign('/login');
                 console.log(err);
                 MainStore.toggleLoading();
@@ -62,8 +60,6 @@ export class AuthStore {
     }
 
     isAuthenticated() {
-        // Check whether the current time is past the
-        // Access Token's expiry time
         let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
     }
@@ -71,16 +67,12 @@ export class AuthStore {
 
     @action login() {
         this.auth0.authorize();
-        // MainStore.toggleLoading();
     }
 
     @action logout() {
-        // Clear Access Token and ID Token from local storage
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
-        // navigate to the home route
-        // history.replace('/login');
         window.location.assign('/login');
     }
 
@@ -89,13 +81,10 @@ export class AuthStore {
     }
 
     @action setSession(authResult) {
-        // Set the time that the Access Token will expire at
         let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
-        // navigate to the home route
-        // history.replace('/');
         this.getProfile();
         window.location.assign('/');
         MainStore.toggleLoading();

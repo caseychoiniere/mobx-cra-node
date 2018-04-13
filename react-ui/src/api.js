@@ -10,12 +10,13 @@ const path = Object.freeze({
 });
 
 const api = {
-    getProjects: () => {
-        return fetch(`${DDS_BASE_URI}/projects/?page=1&per_page=100`, getFetchParams('get', MainStore.appConfig.apiToken))
-    },
 
     getPlanets: () => {
         return fetch(`https://morning-dusk-94993.herokuapp.com/api/planets`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+    },
+
+    test: () => {
+        return fetch('/api', getFetchParams('get'))
     },
 
     makePlanet: () => {

@@ -36,6 +36,14 @@ export class MainStore {
     //     }).catch(ex => this.handleErrors(ex))
     // }
 
+    @action test() {
+        api.test()
+            .then(checkStatus)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json)
+            }).catch(ex => console.log(ex))
+    }
 
     @action getPlanets() {
         api.getPlanets()

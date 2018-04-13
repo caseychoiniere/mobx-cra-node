@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mars/heroku-js-runtime-env": "^3.0.2",
     "auth0-js": "^9.3.3",
     "material-ui": "^0.19.4",
     "mobx": "^3.3.1",
