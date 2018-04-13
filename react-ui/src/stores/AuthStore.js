@@ -8,6 +8,7 @@ import runtimeEnv from '@mars/heroku-js-runtime-env';
 const localEnv = runtimeEnv();
 
 const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/login' : 'https://blooming-ridge-83489.herokuapp.com/login';
+const clientID = !process.env.NODE_ENV ? localEnv.REACT_APP_CLIENT_ID : process.env.REACT_APP_CLIENT_ID;
 
 export class AuthStore {
     @observable auth0;
@@ -17,7 +18,7 @@ export class AuthStore {
     constructor() {
         this.api = api;
         this.auth0 = new auth0.WebAuth({
-            clientID: process.env.REACT_APP_CLIENT_ID || localEnv.REACT_APP_CLIENT_ID,
+            clientID: clientID,
             domain: 'securepoint.auth0.com',
             responseType: 'token id_token',
             audience: 'https://morning-dusk-94993.herokuapp.com',
