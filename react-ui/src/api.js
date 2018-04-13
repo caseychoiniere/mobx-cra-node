@@ -16,7 +16,7 @@ const api = {
     },
 
     test: () => {
-        return fetch('/api', getFetchParams('get'))
+        return fetch('http://localhost:5000/api', getFetchParams('get'))
     },
 
     makePlanet: () => {
