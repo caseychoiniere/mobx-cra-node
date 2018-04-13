@@ -9,6 +9,7 @@ import './styles/index.css';
 class App extends Component {
 
     componentDidMount() {
+        console.log(process.env)
         setInterval(() => MainStore.checkSessionTimeout(), 2000);
     };
 
