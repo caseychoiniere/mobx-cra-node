@@ -9,7 +9,7 @@ import './styles/index.css';
 class App extends Component {
 
     componentDidMount() {
-        MainStore.test();
+        if(localStorage.getItem('access_token')) MainStore.test();
         setInterval(() => MainStore.checkSessionTimeout(), 2000);
     };
 
