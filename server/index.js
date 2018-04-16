@@ -8,29 +8,29 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
-// const jwtCheck = jwt({
-//     secret: jwks.expressJwtSecret({
-//         cache: true,
-//         rateLimit: true,
-//         jwksRequestsPerMinute: 5,
-//         jwksUri: "https://securepoint.auth0.com/.well-known/jwks.json"
-//     }),
-//     audience: 'https://blooming-ridge-83489.herokuapp.com/',
-//     issuer: "https://securepoint.auth0.com/",
-//     algorithms: ['RS256']
-// });
+const jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://securepoint.auth0.com/.well-known/jwks.json"
+    }),
+    audience: 'https://blooming-ridge-83489.herokuapp.com/',
+    issuer: "https://securepoint.auth0.com/",
+    algorithms: ['RS256']
+});
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors());
 // app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), jwtCheck);
 // Answer API requests.
-app.get('/data', (req, res) => {
+app.get('/data', jwtCheck, (req, res) => {
     console.log('api request received')
   res.set('Content-Type', 'application/json');
   res.send('{"message":"DATADATADTA!"}');
 });
 // Answer API requests.
-app.get('/api', function (req, res) {
+app.get('/api', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
     res.send('{"message":"Hello from the custom server!"}');
 });
