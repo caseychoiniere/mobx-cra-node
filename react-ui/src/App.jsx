@@ -9,25 +9,7 @@ import './styles/index.css';
 class App extends Component {
 
     componentDidMount() {
-        // MainStore.test();
-        fetch('https://blooming-ridge-83489.herokuapp.com/api')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`status ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(json => {
-                this.setState({
-                    message: json.message,
-                    fetching: false
-                });
-            }).catch(e => {
-            this.setState({
-                message: `API call failed: ${e}`,
-                fetching: false
-            });
-        })
+        MainStore.test();
         setInterval(() => MainStore.checkSessionTimeout(), 2000);
     };
 

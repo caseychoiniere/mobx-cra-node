@@ -19,22 +19,7 @@ export class MainStore {
         this.projects = [];
         this.sessionTimeoutWarning = false;
         this.user = null;
-
-        this.api = api;
     }
-
-    // @action getProjects() {
-    //     this.loading = true;
-    //     this.api.getProjects()
-    //         .then(checkStatus).then((response) => {
-    //         const results = response.json();
-    //         const headers = response.headers;
-    //         return Promise.all([results, headers]);
-    //     }).then((json) => {
-    //         this.projects = json[0].results;
-    //         this.loading = false;
-    //     }).catch(ex => this.handleErrors(ex))
-    // }
 
     @action test() {
         api.test()
