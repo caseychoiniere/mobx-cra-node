@@ -10,7 +10,7 @@ class App extends Component {
 
     componentDidMount() {
         if(localStorage.getItem('access_token')) MainStore.test();
-        setInterval(() => MainStore.checkSessionTimeout(), 2000);
+        // setInterval(() => MainStore.checkSessionTimeout(), 2000);
     };
 
     render() {
