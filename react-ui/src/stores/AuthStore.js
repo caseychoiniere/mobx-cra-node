@@ -21,7 +21,7 @@ export class AuthStore {
             clientID: clientID,
             domain: 'securepoint.auth0.com',
             responseType: 'token id_token',
-            audience: 'https://morning-dusk-94993.herokuapp.com',
+            audience: 'https://blooming-ridge-83489.herokuapp.com/',
             redirectUri: redirectUri,
             scope: 'openid email profile'
         });

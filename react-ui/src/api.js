@@ -3,7 +3,7 @@ import { getFetchParams } from './util/fetchUtil';
 const api = {
 
     getPlanets: () => {
-        return fetch(`https://morning-dusk-94993.herokuapp.com/api/planets`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+        // return fetch(`https://morning-dusk-94993.herokuapp.com/api/planets`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
     test: () => {
