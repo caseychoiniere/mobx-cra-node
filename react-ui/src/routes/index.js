@@ -21,32 +21,33 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         AuthStore.isAuthenticated() ? (
             <Component {...props}/>
         ) : (
-            <Redirect to='/login'/>
+            <Redirect to="/login"/>
         )
     }/>
 };
 
 const LoginRoute = ({ component: Component, ...rest }) => {
     const redirectUrl = window.sessionStorage.getItem('redirectUrl') ? window.sessionStorage.getItem('redirectUrl') : '/';
-    return <Route {...rest} render={(props) => (
-        !appConfig.apiToken ? <Component {...props} /> : <Redirect to={redirectUrl}/>
-    )}/>
+    return <Route {...rest} render={(props) => {
+        handleAuthentication(props);
+        return !AuthStore.isAuthenticated() ? <Component {...props} /> : <Redirect to={redirectUrl}/>
+    }}/>
 };
 
 export default () => (
     <Router>
         <div>
             <Route component={Header} />
-            {appConfig.apiToken && <Route component={LeftNav} />}
+            {AuthStore.isAuthenticated() && <Route component={LeftNav} />}
             <Container fluid className="mainContainer">
                 <Switch>
-                    {/*<LoginRoute path='/login' component={Login} />*/}
-                    <Route path="/login" render={(props) => {
-                        handleAuthentication(props);
-                        return <Login {...props} />
-                    }}/>
-                    {/*<PrivateRoute  path='/graph/:id' component={Graph} />*/}
-                    <PrivateRoute exact path='/' component={Home} />
+                    <LoginRoute path='/login' component={Login} />
+                    {/*<Route path="/login" render={(props) => {*/}
+                        {/*handleAuthentication(props);*/}
+                        {/*return !AuthStore.isAuthenticated() ? <Login {...props} /> : <Redirect to="/" />*/}
+                    {/*}}/>*/}
+                    <PrivateRoute exact path="/" component={Home} />
+                    <Redirect to="/" />
                 </Switch>
             </Container>
         </div>
