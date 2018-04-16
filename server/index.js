@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
 const jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
         cache: true,
