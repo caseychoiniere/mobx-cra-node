@@ -22,12 +22,12 @@ const api = {
     },
 
     postUserSession: (profile) => {
-        const body = {
-            "name": profile.name,
-            "email": profile.email,
-            "login_time": new Date().getTime(),
-        };
-        return fetch(`https://morning-dusk-94993.herokuapp.com/api/usersessions`, getFetchParams('post', 'Bearer ' +localStorage.getItem('access_token'), body))
+        // const body = {
+        //     "name": profile.name,
+        //     "email": profile.email,
+        //     "login_time": new Date().getTime(),
+        // };
+        // return fetch(`https://morning-dusk-94993.herokuapp.com/api/usersessions`, getFetchParams('post', 'Bearer ' +localStorage.getItem('access_token'), body))
     }
 };
 

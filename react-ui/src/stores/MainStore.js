@@ -31,23 +31,23 @@ export class MainStore {
     }
 
     @action getPlanets() {
-        api.getPlanets()
-            .then(checkStatus)
-            .then(response => response.json())
-            .then((json) => {
-            this.projects = json;
-            console.log(this.projects)
-        }).catch(ex => this.handleErrors(ex))
+        // api.getPlanets()
+        //     .then(checkStatus)
+        //     .then(response => response.json())
+        //     .then((json) => {
+        //     this.projects = json;
+        //     console.log(this.projects)
+        // }).catch(ex => this.handleErrors(ex))
     }
 
     @action makePlanet() {
-        api.makePlanet()
-            .then(checkStatus)
-            .then(response => response.json())
-            .then((json) => {
-                this.projects = [...this.projects, json];
-                console.log(this.projects)
-            }).catch(ex => this.handleErrors(ex))
+        // api.makePlanet()
+        //     .then(checkStatus)
+        //     .then(response => response.json())
+        //     .then((json) => {
+        //         this.projects = [...this.projects, json];
+        //         console.log(this.projects)
+        //     }).catch(ex => this.handleErrors(ex))
     }
 
     @action checkSessionTimeout() {
