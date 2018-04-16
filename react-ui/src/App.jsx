@@ -10,7 +10,7 @@ class App extends Component {
 
     componentDidMount() {
         // MainStore.test();
-        fetch('http://localhost:5000/api')
+        fetch('https://blooming-ridge-83489.herokuapp.com/api')
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`status ${response.status}`);
