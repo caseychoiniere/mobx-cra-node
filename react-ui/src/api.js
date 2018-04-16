@@ -16,7 +16,7 @@ const api = {
     },
 
     test: () => {
-        return fetch('http://localhost:5000/api', getFetchParams('get'))
+        return fetch('https://blooming-ridge-83489.herokuapp.com/api', getFetchParams('get'))
     },
 
     makePlanet: () => {
