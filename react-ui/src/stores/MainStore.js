@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx';
-import cookie from 'react-cookies';
 import api from '../api';
 import AuthStore from './AuthStore';
 import { checkStatus } from '../util/fetchUtil';
