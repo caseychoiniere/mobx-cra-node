@@ -32,17 +32,15 @@ class Header extends Component {
     );
 
     createLoginUrl = () => {
-        const {appConfig} = MainStore;
-        return `${appConfig.authServiceUri}&state=${appConfig.serviceId}&redirect_uri=${window.location.href}`
+
     };
 
     initiateLogin = () => AuthStore.login();
 
     render() {
-        const {appConfig} = MainStore;
         return (
             <AppBar
-                iconStyleLeft={!appConfig.apiToken ? {display: 'none'} : {}}
+                iconStyleLeft={!AuthStore.isAuthenticated() ? {display: 'none'} : {}}
                 iconElementLeft={<IconButton><Menu onClick={this.toggleNav}/></IconButton>}
                 iconElementRight={this.loggedIn()}
                 style={{position: 'fixed'}}

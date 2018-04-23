@@ -1,5 +1,6 @@
 const cors = require('cors');
 const express = require('express');
+const helmet = require('helmet');
 const jwks = require('jwks-rsa');
 const jwt = require('express-jwt');
 const path = require('path');
@@ -21,11 +22,10 @@ const jwtCheck = jwt({
 });
 
 // Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors());
-// app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), jwtCheck);
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), helmet());
+
 // Answer API requests.
 app.get('/data', jwtCheck, (req, res) => {
-    console.log('api request received')
   res.set('Content-Type', 'application/json');
   res.send('{"message":"DATADATADTA!"}');
 });

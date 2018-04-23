@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import appConfig from '../appConfig';
 import AuthStore from '../stores/AuthStore';
 import { Container } from 'react-grid-system';
 import Graph from '../containers/Graph.jsx';
@@ -16,7 +15,6 @@ const handleAuthentication = (nextState, replace) => {
 };
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    !appConfig.apiToken && window.sessionStorage.setItem('redirectUrl', window.location.pathname);
     return <Route {...rest} render={(props) =>
         AuthStore.isAuthenticated() ? (
             <Component {...props}/>
@@ -27,7 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 const LoginRoute = ({ component: Component, ...rest }) => {
-    const redirectUrl = window.sessionStorage.getItem('redirectUrl') ? window.sessionStorage.getItem('redirectUrl') : '/';
+    const redirectUrl = localStorage.getItem('redirectUrl') ? localStorage.getItem('redirectUrl') : '/';
     return <Route {...rest} render={(props) => {
         handleAuthentication(props);
         return !AuthStore.isAuthenticated() ? <Component {...props} /> : <Redirect to={redirectUrl}/>

@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx';
 import api from '../api';
-import appConfig from '../appConfig';
 import auth0 from 'auth0-js';
 import MainStore from './MainStore';
 import runtimeEnv from '@mars/heroku-js-runtime-env';
@@ -12,7 +11,6 @@ const clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.R
 
 export class AuthStore {
     @observable auth0;
-    @observable authenticated;
     @observable userProfile;
 
     constructor() {
@@ -23,9 +21,11 @@ export class AuthStore {
             responseType: 'token id_token',
             audience: 'https://blooming-ridge-83489.herokuapp.com/',
             redirectUri: redirectUri,
-            scope: 'openid email profile'
+            scope: 'openid email profile',
+            options: {
+                rememberLastLogin: false
+            }
         });
-        this.authenticated = false;
         this.userProfile = null;
     }
 
@@ -38,7 +38,7 @@ export class AuthStore {
     }
 
     @action getProfile() {
-        let accessToken = this.getAccessToken();
+        const accessToken = this.getAccessToken();
         this.auth0.client.userInfo(accessToken, (err, profile) => {
             if (profile) {
                 this.userProfile = profile;
@@ -54,7 +54,6 @@ export class AuthStore {
                 this.setSession(authResult);
             } else if (err) {
                 window.location.assign('/login');
-                console.log(err);
                 MainStore.toggleLoading();
             }
         });
@@ -65,16 +64,16 @@ export class AuthStore {
         return new Date().getTime() < expiresAt;
     }
 
-
     @action login() {
         this.auth0.authorize();
     }
 
-    @action logout() {
+    @action logout(er) {
+        if(!er) localStorage.removeItem('redirectUrl');
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
-        window.location.assign('/login');
+        window.location.assign(`https://securepoint.auth0.com/v2/logout?returnTo=${redirectUri}`);
     }
 
     @action postUserSession(profile) {
@@ -82,31 +81,14 @@ export class AuthStore {
     }
 
     @action setSession(authResult) {
-        let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+        const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
         localStorage.setItem('expires_at', expiresAt);
-        this.getProfile();
-        window.location.assign('/');
+        const redirectUrl = localStorage.getItem('redirectUrl') ? localStorage.getItem('redirectUrl') : '/23482348283794';
+        window.location.assign(redirectUrl);
         MainStore.toggleLoading();
     }
-
-
-
-
-    @action toggleLoading() {
-        this.loading = !this.loading;
-    }
-
-    @action handleErrors(error) {
-        this.loading = false;
-        if (error && error.response && error.response.status) {
-            if (error.response.status === 401) {
-                // window.location.href = window.location.protocol + '//' + window.location.host + '/login';
-            }
-        }
-    }
-
 }
 
 const authStore = new AuthStore();

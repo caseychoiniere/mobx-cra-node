@@ -8,7 +8,7 @@ import Paper from 'material-ui/Paper'
 @observer
 class Home extends Component {
     componentDidMount() {
-        MainStore.getPlanets();
+        MainStore.test();
         AuthStore.getProfile();
     }
 
