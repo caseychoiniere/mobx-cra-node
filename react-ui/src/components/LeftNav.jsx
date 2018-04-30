@@ -4,28 +4,49 @@ import MainStore from '../stores/MainStore';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import IconButton from 'material-ui/IconButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import { MenuItem } from 'material-ui/Menu';
+import { Menu } from '@material-ui/icons';
+
+const styles = {
+    appBar: {
+        height: 150,
+    },
+    root: {
+        height: 150
+    },
+    flex: {
+        flex: 1,
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+    },
+};
 
 @observer
 class LeftNav extends Component {
 
-    toggleNav = () => { MainStore.toggleNav() };
+    toggleDrawer = (key) => MainStore.toggleDrawer(key);
 
     render() {
-        const { openNav } = MainStore;
+        const { drawers } = MainStore;
         return (
-            <div>
-                <Drawer
-                    docked={false}
-                    open={openNav}
-                    onRequestChange={this.toggleNav}
+            <Drawer open={drawers.has('mainNavDrawer')} onClose={() => this.toggleDrawer('mainNavDrawer')}>
+                <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => this.toggleDrawer('mainNavDrawer')}
+                    onKeyDown={() => this.toggleDrawer('mainNavDrawer')}
                 >
-                    <AppBar iconElementLeft={<IconButton><NavigationClose onClick={this.toggleNav}/></IconButton>}/>
-                    <MenuItem  style={{marginTop: 64}} onClick={this.toggleNav}>Menu Item</MenuItem>
-                    <MenuItem onClick={this.toggleNav}>Menu Item 2</MenuItem>
-                </Drawer>
-            </div>
+                    <AppBar>
+                        <IconButton styles={styles.menuButton} color="inherit" aria-label="Menu" onClick={() => this.toggleDrawer('mainNavDrawer')}>
+                            <Menu />
+                        </IconButton>
+                    </AppBar>
+                    <MenuItem style={{marginTop: 64}}>Menu Item</MenuItem>
+                    <MenuItem >Menu Item 2</MenuItem>
+                </div>
+            </Drawer>
         );
     }
 }

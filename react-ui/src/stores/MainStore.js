@@ -4,12 +4,22 @@ import AuthStore from './AuthStore';
 import { checkStatus } from '../util/fetchUtil';
 
 export class MainStore {
+    @observable anchorElements;
+    @observable drawers;
     @observable loading;
     @observable openNav;
 
     constructor() {
+        this.anchorElements = observable.map();
+        this.drawers = observable.map();
         this.loading = false;
         this.openNav = false;
+    }
+
+    @action setAnchorElement(anchorEl, i) {
+        let a = this.anchorElements;
+        !a.has(i) ? a.set(i, anchorEl) : a.delete(i);
+        this.anchorElements = a;
     }
 
     @action test() {
@@ -25,8 +35,8 @@ export class MainStore {
         this.loading = !this.loading;
     }
 
-    @action toggleNav() {
-        this.openNav = !this.openNav;
+    @action toggleDrawer(key) {
+        !this.drawers.has(key) ? this.drawers.set(key, true) : this.drawers.delete(key);
     }
 
     @action handleErrors(er) {

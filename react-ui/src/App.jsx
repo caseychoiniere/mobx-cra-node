@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Routes from './routes';
 import MainStore from './stores/MainStore';
 import './styles/index.css';
+
+const theme = createMuiTheme();
 
 @observer
 class App extends Component {
 
     componentDidMount() {
         if(localStorage.getItem('access_token')) MainStore.test();
-        // setInterval(() => MainStore.checkSessionTimeout(), 2000);
     };
 
     render() {
         return (
-            <MuiThemeProvider >
+            <MuiThemeProvider theme={theme}>
                 <Routes />
             </MuiThemeProvider>
         );
