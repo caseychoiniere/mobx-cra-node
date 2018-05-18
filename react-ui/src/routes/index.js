@@ -6,7 +6,7 @@ import Graph from '../containers/Graph.jsx';
 import Header from '../components/Header';
 import Home from '../containers/Home.jsx';
 import LeftNav from '../components/LeftNav.jsx';
-import Login from '../containers/Login.jsx';
+import Login from '../components/Login.jsx';
 
 const handleAuthentication = (nextState, replace) => {
     if (/access_token|id_token|error/.test(nextState.location.hash)) {

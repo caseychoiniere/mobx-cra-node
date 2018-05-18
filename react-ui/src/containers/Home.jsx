@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Col, Row } from 'react-grid-system';
 import AuthStore from '../stores/AuthStore'
 import MainStore from '../stores/MainStore'
-import Paper from 'material-ui/Paper'
+import Paper from '@material-ui/core/Paper'
 
 @observer
 class Home extends Component {
