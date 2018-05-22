@@ -1,13 +1,13 @@
 import { observable, action } from 'mobx';
 import api from '../api';
-// import AuthStore from './AuthStore';
+import AuthStore from './AuthStore';
 import { checkStatus } from '../util/fetchUtil';
 
 export class MainStore {
-    // @observable anchorElements;
-    // @observable drawers;
-    // @observable loading;
-    // @observable openNav;
+    @observable anchorElements;
+    @observable drawers;
+    @observable loading;
+    @observable openNav;
 
     constructor() {
         this.anchorElements = observable.map();
@@ -16,40 +16,36 @@ export class MainStore {
         this.openNav = false;
     }
 
-    // @action setAnchorElement(anchorEl, i) {
-    //     let a = this.anchorElements;
-    //     !a.has(i) ? a.set(i, anchorEl) : a.delete(i);
-    //     this.anchorElements = a;
-    // }
-    //
-    // @action test() {
-    //     api.test()
-    //         .then(checkStatus)
-    //         .then(response => response.json())
-    //         .then((json) => {
-    //             console.log(json)
-    //         }).catch(er => this.handleErrors(er))
-    // }
+    @action setAnchorElement(anchorEl, i) {
+        let a = this.anchorElements;
+        !a.has(i) ? a.set(i, anchorEl) : a.delete(i);
+        this.anchorElements = a;
+    }
 
-    // @action toggleLoading() {
-    //     this.loading = !this.loading;
-    // }
+    @action test() {
+        api.test()
+            .then(checkStatus)
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json)
+            }).catch(er => this.handleErrors(er))
+    }
 
-    toggleLoading() {
+    @action toggleLoading() {
         this.loading = !this.loading;
     }
 
-    // @action toggleDrawer(key) {
-    //     !this.drawers.has(key) ? this.drawers.set(key, true) : this.drawers.delete(key);
-    // }
-    //
-    // @action handleErrors(er) {
-    //     this.loading = false;
-    //     if (er.response.status === 401) {
-    //         localStorage.setItem('redirectUrl', window.location.href);
-    //         AuthStore.logout(er);
-    //     }
-    // }
+    @action toggleDrawer(key) {
+        !this.drawers.has(key) ? this.drawers.set(key, true) : this.drawers.delete(key);
+    }
+
+    @action handleErrors(er) {
+        this.loading = false;
+        if (er.response.status === 401) {
+            localStorage.setItem('redirectUrl', window.location.href);
+            AuthStore.logout(er);
+        }
+    }
 }
 
 const mainStore = new MainStore();
