@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 9.11.1
+- 6
 script:
 - cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run test && npm run build
 branches:
