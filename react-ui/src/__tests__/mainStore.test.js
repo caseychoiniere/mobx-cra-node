@@ -11,6 +11,8 @@ describe('Main Store', () => {
         MainStore = require('../stores/MainStore').default;
         api = {};
         MainStore.api = api;
+        console.log(MainStore.loading)
+        console.log(MainStore)
     });
 
     it('@action toggleLoading - should toggle loading state from true to false', () => {
