@@ -27,12 +27,12 @@ app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), he
 // Answer API requests.
 app.get('/data', jwtCheck, (req, res) => {
   res.set('Content-Type', 'application/json');
-  res.send('{"message":"DATADATADTA!"}');
+  res.send('{"message":"DATA"}');
 });
 // Answer API requests.
 app.get('/api', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
-    res.send('{"message":"Hello from the custom server!"}');
+    res.send('{"message":"Hello from the server"}');
 });
 
 // All remaining requests return the React app, so it can handle routing.
