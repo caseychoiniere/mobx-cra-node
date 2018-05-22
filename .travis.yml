@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- 9.11.1
+script:
+- cd react-ui/ && npm run test
+branches:
+  only:
+  - master
+  - development
+deploy:
+  provider: heroku
+  api_key:
+    secure: Ql/AL2ZOCJaK0KvTPB3pydVOYlsWxiv623eHXOazSDchIoeRdTkPGK2zirDadWWv7w04Ji7wnGtZUli6rhjAuBhoBU7aAZzOykEgF/BsmWw54qCCFGKQus7ugc/+ZH+DyFzXyYbpr7fGBixWfeQQRQujt1bRfhgkQ9W6LQ7lYRuHNcUv2XJjNE4Nud02dXtmANCXxqRQvO6/nUiLePMuz+uJDcj/3KVTDbRGalTWz0LwGAHCRxFbPylxkO664RTEGVON2Phj5H/NaBoHhKDfMcROTmsdJab4M9+pfnUQI3aGWwIoKg9z4MGIJV9o/EVdEmPsFwmfiiWBvkMbrx970qBvpOQli4TtA2KOHEcEmEHKlni40RQHjswA7KNxnRsX3rY9qRsHqiCiobDO2ejXqGXBA3Z1TUSrKt5pyfzPYTE0qnwTkvPsyQUazXTO9yBe7Oj4vbNKQurOIO3pu402AUd41qZZWKMVv/gcyFukHRV9RRJLy01je/P5cqJN4dTAYZKZoXGlw5BotUOFPahwsZvSGtur8dxyg4sPyxoryzJf3zZade0xkt336i0J3+p7oasaazLuMo0QZoogGCVAVuUYDyVM+trhWzMswiiuvMIgITthrdDDkwYTfUBhgBFUqbKNxiJOvZFte4RFlyRdHvPEVKl7XfoyKWbH/WWXcr4=
+    app:
+        master: blooming-ridge-83489
+        development: my-app-production
