@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import api from '../api';
-import AuthStore from './AuthStore';
+// import AuthStore from './AuthStore';
 import { checkStatus } from '../util/fetchUtil';
 
 export class MainStore {
