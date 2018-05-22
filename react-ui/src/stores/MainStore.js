@@ -4,10 +4,10 @@ import AuthStore from './AuthStore';
 import { checkStatus } from '../util/fetchUtil';
 
 export class MainStore {
-    @observable anchorElements;
-    @observable drawers;
-    @observable loading;
-    @observable openNav;
+    // @observable anchorElements;
+    // @observable drawers;
+    // @observable loading;
+    // @observable openNav;
 
     constructor() {
         this.anchorElements = observable.map();
