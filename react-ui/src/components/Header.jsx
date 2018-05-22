@@ -19,7 +19,7 @@ const theme = createMuiTheme();
 
 const styles = {
     appBar: {
-        backgroundColor: Color.white
+        backgroundColor: Color.dark_turquoise
     },
     flex: {
         flex: 1,
