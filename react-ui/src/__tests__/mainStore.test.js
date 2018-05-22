@@ -8,7 +8,7 @@ describe('Main Store', () => {
     let MainStore = null;
 
     beforeEach(() => {
-        MainStore = require('../stores/mainStore').default;
+        MainStore = require('../stores/MainStore').default;
         api = {};
         MainStore.api = api;
     });
