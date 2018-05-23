@@ -2,12 +2,19 @@ language: node_js
 
 node_js:
   - stable
+
+cache:
+  directories:
+    - node_modules
+
 script:
   - cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run test && CI=false npm run build
+
 branches:
   only:
   - master
   - development
+
 deploy:
   provider: heroku
   api_key:

@@ -8,19 +8,17 @@ describe('Main Store', () => {
     let MainStore = null;
 
     beforeEach(() => {
-        // MainStore = require('../stores/MainStore').default;
-        // api = {};
-        // MainStore.api = api;
-        // console.log(MainStore.loading)
-        // console.log(MainStore)
+        MainStore = require('../stores/MainStore').default;
+        api = {};
+        MainStore.api = api;
     });
 
     it('@action toggleLoading - should toggle loading state from true to false', () => {
-        // expect(MainStore.loading).toBe(false);
-        // MainStore.toggleLoading();
-        // expect(MainStore.loading).toBe(true);
-        // MainStore.toggleLoading();
-        // expect(MainStore.loading).toBe(false);
+        expect(MainStore.loading).toBe(false);
+        MainStore.toggleLoading();
+        expect(MainStore.loading).toBe(true);
+        MainStore.toggleLoading();
+        expect(MainStore.loading).toBe(false);
     });
 
 });
