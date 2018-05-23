@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV !== 'production' ? runtimeEnv() : process.env.N
 const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/login' : 'https://blooming-ridge-83489.herokuapp.com/login';
 let clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.REACT_APP_CLIENT_ID;
 
-clientID = clientID || 'HeZIUdDdXhTOvWxfzHUKFOZtKDI3v772';
+clientID = clientID || '';
 
 export class AuthStore {
     @observable auth0;
