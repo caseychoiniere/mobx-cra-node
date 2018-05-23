@@ -5,9 +5,8 @@ node_js:
 
 install:
   - cd react-ui/ && npm install
-
 script:
-  - npm test
+  - npm test && npm run build
 branches:
   only:
   - master
