@@ -1,12 +1,23 @@
 language: node_js
+
 node_js:
-- 9.11.1
+  - stable
+
+cache:
+  directories:
+    - node_modules
+env:
+  global:
+    - clientID=....
+
 script:
-- cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run test && npm run build
-branches
+  - cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run test && CI=false npm run build
+
+branches:
   only:
   - master
   - development
+
 deploy:
   provider: heroku
   api_key:
