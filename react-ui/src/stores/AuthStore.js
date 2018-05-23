@@ -7,7 +7,6 @@ import runtimeEnv from '@mars/heroku-js-runtime-env';
 const env = process.env.NODE_ENV !== 'production' ? runtimeEnv() : process.env.NODE_ENV;
 const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/login' : 'https://blooming-ridge-83489.herokuapp.com/login';
 let clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.REACT_APP_CLIENT_ID;
-
 clientID = clientID || '';
 
 export class AuthStore {
