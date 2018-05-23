@@ -1,0 +1,27 @@
+{
+  "name": "mobx-cra-node",
+  "description": "",
+  "scripts": {
+  },
+  "env": {
+    "REACT_APP_CLIENT_ID": {
+      "required": true
+    },
+    "REACT_APP_DECORATORS": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
