@@ -2,11 +2,8 @@ language: node_js
 
 node_js:
   - stable
-
-install:
-  - cd react-ui/ && npm install
 script:
-  - npm test && npm run build
+  - cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run test && npm run build
 branches:
   only:
   - master
