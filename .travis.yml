@@ -1,13 +1,13 @@
 language: node_js
+
 node_js:
-- 9.11.1
-cache:
-  directories:
-    - node_modules
+  - stable
+
 install:
-  - cd react-ui/ && npm install
+  - npm install
+
 script:
-- npm test && npm run build
+  - npm test
 branches:
   only:
   - master
