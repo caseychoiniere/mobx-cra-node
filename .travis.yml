@@ -13,9 +13,6 @@ env:
 script:
   - cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run test && CI=false npm run build
 
-after_success:
-- git push heroku master
-
 branches:
   only:
   - master
