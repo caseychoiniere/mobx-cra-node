@@ -11,7 +11,7 @@ const api = {
     },
 
     getApiToken: (body) => {
-        return fetch('http://localhost:5000/agent-token')
+        return fetch('https://blooming-ridge-83489.herokuapp.com/api/agent-token')
     },
 
     getProjects: (token) => {
