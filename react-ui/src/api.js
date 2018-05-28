@@ -7,7 +7,7 @@ const api = {
     },
 
     test: () => {
-        return fetch('https://blooming-ridge-83489.herokuapp.com/api', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+        return fetch('https://blooming-ridge-83489.herokuapp.com/api/status', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
     getApiToken: (body) => {

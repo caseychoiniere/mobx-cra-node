@@ -30,7 +30,7 @@ const jwtCheck = jwt({
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), helmet());
 
-app.get('/agent-token', (req, res) => {
+app.get('/api/agent-token', (req, res) => {
     res.set('Content-Type', 'application/json');
     fetch(DDS_API_URL, {
         method: 'POST',
@@ -50,7 +50,7 @@ app.get('/data', jwtCheck, (req, res) => {
   res.send('{"message":"DATA"}');
 });
 // Answer API requests.
-app.get('/api', jwtCheck, (req, res) => {
+app.get('/api/status', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
     res.send('{"message":"Hello from the server"}');
     console.log(DDS_API_URL)
