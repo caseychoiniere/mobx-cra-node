@@ -53,6 +53,8 @@ app.get('/data', jwtCheck, (req, res) => {
 app.get('/api', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
     res.send('{"message":"Hello from the server"}');
+    console.log(DDS_API_URL)
+    console.log(REACT_APP_DDS_API_URL)
 });
 
 // All remaining requests return the React app, so it can handle routing.
