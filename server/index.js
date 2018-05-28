@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 5000;
 const DDS_API_URL = process.env.DDS_API_URL || 'https://apidev.dataservice.duke.edu/api/v1/software_agents/api_token';
 const REACT_APP_DDS_API_URL = process.env.REACT_APP_DDS_API_URL || 'test';
 
+console.log(REACT_APP_DDS_API_URL)
+console.log(DDS_API_URL)
+
 const fetch = require('node-fetch');
 
 const jwtCheck = jwt({
