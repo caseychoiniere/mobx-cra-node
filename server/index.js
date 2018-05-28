@@ -7,7 +7,10 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const DDS_API_URL = process.env.DDS_API_URL || 'https://apidev.dataservice.duke.edu/api/v1/software_agents/api_token';
+const REACT_APP_DDS_API_URL = process.env.REACT_APP_DDS_API_URL || 'test';
 
+const fetch = require('node-fetch');
 
 const jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
@@ -23,6 +26,20 @@ const jwtCheck = jwt({
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), helmet());
+
+app.get('/agent-token', (req, res) => {
+    res.set('Content-Type', 'application/json');
+    fetch(DDS_API_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:  JSON.stringify({
+            "agent_key": "26152df8b8a4a024e8ff30cbc92e50dc",
+            "user_key": "4a097b1fcd60b3bb21f50c737f38558f",
+        })
+    }).then(res => res.json()).then((json) => {
+            return res.send(json)
+        })
+});
 
 // Answer API requests.
 app.get('/data', jwtCheck, (req, res) => {

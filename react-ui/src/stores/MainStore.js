@@ -39,6 +39,23 @@ export class MainStore {
         !this.drawers.has(key) ? this.drawers.set(key, true) : this.drawers.delete(key);
     }
 
+    @action getApiToken() {
+        api.getApiToken()
+            .then()
+            .then(response => response.json())
+            .then((json) => {
+                console.log(json)
+                    api.getProjects(json.api_token)
+                // fetch('https://apidev.dataservice.duke.edu/api/v1/software_agents?per_page=1000','get', json.api_token)
+                    .then()
+                    .then(response => response.json())
+                    .then((json) => {
+                        console.log(json.results);
+                    }).catch(ex =>this.handleErrors(ex))
+            })
+            .catch(er => this.handleErrors(er))
+    }
+
     @action handleErrors(er) {
         this.loading = false;
         if (er.response.status === 401) {

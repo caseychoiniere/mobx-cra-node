@@ -10,6 +10,14 @@ const api = {
         return fetch('https://blooming-ridge-83489.herokuapp.com/api', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
+    getApiToken: (body) => {
+        return fetch('http://localhost:5000/agent-token')
+    },
+
+    getProjects: (token) => {
+        return fetch('https://apidev.dataservice.duke.edu/api/v1/projects?per_page=1000',getFetchParams('get', token))
+    },
+
     makePlanet: () => {
         let body = {
             "name": "cyclops782348792",
