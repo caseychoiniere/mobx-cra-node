@@ -30,18 +30,20 @@ const jwtCheck = jwt({
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), helmet());
 
-app.get('/api/agent-token', (req, res) => {
+app.get('/api/agent-token', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
     fetch(DDS_API_URL, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body:  JSON.stringify({
             "agent_key": "26152df8b8a4a024e8ff30cbc92e50dc",
-            "user_key": "4a097b1fcd60b3bb21f50c737f38558f",
+            "user_key": "4a097b1fcd60b3bb21f50c737f38558f"
         })
     }).then(res => res.json()).then((json) => {
-            return res.send(json)
-        })
+        return res.send(json)
+    })
 });
 
 // Answer API requests.
@@ -53,8 +55,6 @@ app.get('/data', jwtCheck, (req, res) => {
 app.get('/api/status', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
     res.send('{"message":"Hello from the server"}');
-    console.log(DDS_API_URL)
-    console.log(REACT_APP_DDS_API_URL)
 });
 
 // All remaining requests return the React app, so it can handle routing.

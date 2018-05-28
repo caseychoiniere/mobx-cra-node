@@ -11,7 +11,8 @@ const api = {
     },
 
     getApiToken: (body) => {
-        return fetch('https://blooming-ridge-83489.herokuapp.com/api/agent-token')
+        // return fetch('http://localhost:5000/api/agent-token', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+        return fetch('https://blooming-ridge-83489.herokuapp.com/api/agent-token', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
     getProjects: (token) => {
