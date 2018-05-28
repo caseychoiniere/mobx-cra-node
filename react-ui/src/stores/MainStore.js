@@ -53,7 +53,10 @@ export class MainStore {
                         console.log(json.results);
                     }).catch(ex =>this.handleErrors(ex))
             })
-            .catch(er => this.handleErrors(er))
+            .catch((er) => {
+                console.log(er)
+                this.handleErrors(er)
+            })
     }
 
     @action handleErrors(er) {
