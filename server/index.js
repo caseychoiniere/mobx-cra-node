@@ -7,7 +7,7 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const DDS_API_URL = process.env.DDS_API_URL;
+const DDS_API_URL = `${process.env.DDS_API_URL}software_agents/api_token`;
 const agentKey = process.env.AGENT_KEY;
 const userKey = process.env.AGENT_USER_KEY;
 
