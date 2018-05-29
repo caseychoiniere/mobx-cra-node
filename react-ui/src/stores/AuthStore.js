@@ -3,19 +3,12 @@ import api from '../api';
 import auth0 from 'auth0-js';
 import config from '../config';
 import MainStore from './MainStore';
-import runtimeEnv from '@mars/heroku-js-runtime-env';
-
-const env = process.env.NODE_ENV !== 'production' ? runtimeEnv() : process.env.NODE_ENV;
-const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/login' : `${process.env.REACT_APP_URL}login`;
-let clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.REACT_APP_CLIENT_ID;
-clientID = clientID || '';
 
 export class AuthStore {
     @observable auth0;
     @observable userProfile;
 
     constructor() {
-        this.api = api;
         this.auth0 = new auth0.WebAuth({
             clientID: config.CLIENT_ID,
             domain: config.AUTH0_URL,
