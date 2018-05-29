@@ -1,4 +1,4 @@
-import runtimeEnv from '@mars/heroku-js-runtime-env';
+const runtimeEnv = require('@mars/heroku-js-runtime-env');
 
 const env = process.env.NODE_ENV !== 'production' ? runtimeEnv() : process.env.NODE_ENV;
 
@@ -12,7 +12,7 @@ let clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.REA
 
 clientID = clientID || '';
 
-const ddsApiUrl = `${process.env.REACT_APP_DDS_API_URL}software_agents/api_token`;
+const ddsApiUrl = !process.env.NODE_ENV ? env.REACT_APP_DDS_API_URL : process.env.REACT_APP_DDS_API_URL;
 
 const jwksURI = !process.env.NODE_ENV ? env.REACT_APP_JWKS_URI : process.env.REACT_APP_JWKS_URI;
 
@@ -20,7 +20,7 @@ const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:30
 
 const userKey = !process.env.NODE_ENV ? env.REACT_APP_AGENT_USER_KEY : process.env.REACT_APP_AGENT_USER_KEY;
 
-export default config = {
+exports.config = {
     AGENT_KEY: agentKey,
     APP_URL: appUrl,
     AUTH0_URL: auth0Url,
