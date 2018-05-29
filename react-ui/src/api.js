@@ -16,7 +16,7 @@ const api = {
     },
 
     getProjects: (token) => {
-        return fetch('https://apidev.dataservice.duke.edu/api/v1/projects?per_page=1000',getFetchParams('get', token))
+        return fetch(`${process.env.REACT_APP_DDS_API_URL}?per_page=1000`,getFetchParams('get', token))
     },
 
     makePlanet: () => {
