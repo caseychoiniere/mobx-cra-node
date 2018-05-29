@@ -1,3 +1,4 @@
+import config from '../react-ui/src/config';
 const cors = require('cors');
 const express = require('express');
 const helmet = require('helmet');
@@ -7,9 +8,6 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const DDS_API_URL = `${process.env.DDS_API_URL}software_agents/api_token`;
-const agentKey = process.env.AGENT_KEY;
-const userKey = process.env.AGENT_USER_KEY;
 
 const fetch = require('node-fetch');
 
@@ -18,10 +16,10 @@ const jwtCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: "https://securepoint.auth0.com/.well-known/jwks.json"
+        jwksUri: config.JWKS_URI
     }),
-    audience: 'https://blooming-ridge-83489.herokuapp.com/',
-    issuer: "https://securepoint.auth0.com/",
+    audience: config.APP_URL,
+    issuer: config.AUTH0_URL,
     algorithms: ['RS256']
 });
 
@@ -30,15 +28,15 @@ app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), he
 
 app.get('/api/agent-token', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
-    fetch(DDS_API_URL, {
+    fetch(`${config.DDS_API_URL}software_agents/api_token`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            'agent_key': agentKey,
-            'user_key': userKey
+            'agent_key': config.AGENT_KEY,
+            'user_key': config.USER_KEY
         })
     }).then(res => res.json()).then((json) => {
         return res.send(json)
