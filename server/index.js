@@ -8,10 +8,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const DDS_API_URL = process.env.DDS_API_URL || 'https://apidev.dataservice.duke.edu/api/v1/software_agents/api_token';
-const REACT_APP_DDS_API_URL = process.env.REACT_APP_DDS_API_URL || 'test';
-
-console.log(REACT_APP_DDS_API_URL)
-console.log(DDS_API_URL)
+const agentKey = process.env.AGENT_KEY;
+const userKey = process.env.AGENT_USER_KEY;
 
 const fetch = require('node-fetch');
 
@@ -30,23 +28,21 @@ const jwtCheck = jwt({
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')), cors(), helmet());
 
-app.get('/api/agent-token', jwtCheck, async (req, res) => {
+app.get('/api/agent-token', jwtCheck, (req, res) => {
     res.set('Content-Type', 'application/json');
-    const response = await fetch(DDS_API_URL, {
+    fetch(DDS_API_URL, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            'agent_key': "26152df8b8a4a024e8ff30cbc92e50dc",
-            'user_key': "4a097b1fcd60b3bb21f50c737f38558f"
+            'agent_key': agentKey,
+            'user_key': userKey
         })
     }).then(res => res.json()).then((json) => {
-        return json
+        return res.send(json)
     })
-    const json = await response;
-    res.send(json)
 });
 
 // Answer API requests.
