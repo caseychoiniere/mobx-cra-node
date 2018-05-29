@@ -1,20 +1,26 @@
 import { observable, action } from 'mobx';
 import api from '../api';
 import auth0 from 'auth0-js';
-import config from '../config';
 import MainStore from './MainStore';
+import runtimeEnv from '@mars/heroku-js-runtime-env';
+
+const env = process.env.NODE_ENV !== 'production' ? runtimeEnv() : process.env.NODE_ENV;
+const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/login' : 'https://blooming-ridge-83489.herokuapp.com/login';
+let clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.REACT_APP_CLIENT_ID;
+clientID = clientID || '';
 
 export class AuthStore {
     @observable auth0;
     @observable userProfile;
 
     constructor() {
+        this.api = api;
         this.auth0 = new auth0.WebAuth({
-            clientID: config.CLIENT_ID,
-            domain: config.AUTH0_URL,
+            clientID: clientID,
+            domain: 'securepoint.auth0.com',
             responseType: 'token id_token',
-            audience: config.APP_URL,
-            redirectUri: config.REDIRECT_URI,
+            audience: 'https://blooming-ridge-83489.herokuapp.com/',
+            redirectUri: redirectUri,
             scope: 'openid email profile',
             options: {
                 rememberLastLogin: false
@@ -67,7 +73,7 @@ export class AuthStore {
         localStorage.removeItem('access_token');
         localStorage.removeItem('id_token');
         localStorage.removeItem('expires_at');
-        window.location.assign(`${config.AUTH0_URL}v2/logout?returnTo=${redirectUri}`);
+        window.location.assign(`https://securepoint.auth0.com/v2/logout?returnTo=${redirectUri}`);
     }
 
     @action postUserSession(profile) {
