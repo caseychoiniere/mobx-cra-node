@@ -4,7 +4,6 @@ const helmet = require('helmet');
 const jwks = require('jwks-rsa');
 const jwt = require('express-jwt');
 const path = require('path');
-if (!process.env.NODE_ENV) require('dotenv').load();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,8 +20,8 @@ const jwtCheck = jwt({
         jwksRequestsPerMinute: 5,
         jwksUri: "https://securepoint.auth0.com/.well-known/jwks.json"
     }),
-    audience: process.env.REACT_APP_API_ID,
-    issuer: process.env.REACT_APP_AUTH0,
+    audience: 'https://blooming-ridge-83489.herokuapp.com/',
+    issuer: "https://securepoint.auth0.com/",
     algorithms: ['RS256']
 });
 
