@@ -1,4 +1,3 @@
-import { config } from './config';
 import { getFetchParams } from './util/fetchUtil';
 
 const api = {
