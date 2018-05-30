@@ -1,10 +1,13 @@
-import { config } from './config';
 import { getFetchParams } from './util/fetchUtil';
 
 const api = {
 
+    getPlanets: () => {
+        return fetch(`https://morning-dusk-94993.herokuapp.com/api/planets`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+    },
+
     test: () => {
-        return fetch(`${config.APP_URL}api/status`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+        return fetch('https://blooming-ridge-83489.herokuapp.com/api/status', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
     getDDSApiToken: () => {
@@ -12,7 +15,7 @@ const api = {
     },
 
     getProjects: (token) => {
-        return fetch(`${config.DDS_API_URL}/projects?per_page=1000`,getFetchParams('get', token))
+        return fetch(`${process.env.REACT_APP_DDS_API_URL}/projects?per_page=1000`,getFetchParams('get', token))
     },
 
     makePlanet: () => {
