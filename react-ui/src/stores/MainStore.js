@@ -44,9 +44,7 @@ export class MainStore {
             .then()
             .then(response => response.json())
             .then((json) => {
-                console.log(json)
-                    api.getProjects(json.api_token)
-                // fetch('https://apidev.dataservice.duke.edu/api/v1/software_agents?per_page=1000','get', json.api_token)
+                api.getProjects(json.api_token)
                     .then()
                     .then(response => response.json())
                     .then((json) => {
@@ -54,7 +52,6 @@ export class MainStore {
                     }).catch(ex =>this.handleErrors(ex))
             })
             .catch((er) => {
-                console.log(er)
                 this.handleErrors(er)
             })
     }
