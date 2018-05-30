@@ -20,7 +20,7 @@ const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:30
 
 const userKey = !process.env.NODE_ENV ? env.REACT_APP_AGENT_USER_KEY : process.env.REACT_APP_AGENT_USER_KEY;
 
-export const config = {
+exports.config = {
     AGENT_KEY: agentKey,
     APP_URL: appUrl,
     AUTH0_URL: auth0Url,
