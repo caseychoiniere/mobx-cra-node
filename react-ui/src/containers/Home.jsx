@@ -10,7 +10,7 @@ class Home extends Component {
     componentDidMount() {
         MainStore.test();
         AuthStore.getProfile();
-        MainStore.getApiToken();
+        AuthStore.getDDSApiToken();
     }
 
     render() {

@@ -10,9 +10,8 @@ const api = {
         return fetch('https://blooming-ridge-83489.herokuapp.com/api/status', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
-    getApiToken: (body) => {
-        // return fetch('http://localhost:5000/api/agent-token', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
-        return fetch('https://blooming-ridge-83489.herokuapp.com/api/agent-token', getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
+    getDDSApiToken: () => {
+        return fetch(`${config.APP_URL}api/agent-token`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
     getProjects: (token) => {
