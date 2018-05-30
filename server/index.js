@@ -21,7 +21,7 @@ const jwtCheck = jwt({
         jwksRequestsPerMinute: 5,
         jwksUri: process.env.REACT_APP_JWKS_URI
     }),
-    audience: process.env.REACT_APP_URL,
+    audience: process.env.REACT_APP_API_ID,
     issuer: process.env.REACT_APP_AUTH0,
     algorithms: ['RS256']
 });
