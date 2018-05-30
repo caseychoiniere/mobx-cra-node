@@ -9,10 +9,7 @@ const helmet = require('helmet');
 const jwks = require('jwks-rsa');
 const jwt = require('express-jwt');
 const path = require('path');
-
-if (!process.env.NODE_ENV) {
-    require('dotenv').load();
-}
+if (!process.env.NODE_ENV) require('dotenv').load();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,7 +21,7 @@ const jwtCheck = jwt({
         jwksRequestsPerMinute: 5,
         jwksUri: process.env.REACT_APP_JWKS_URI
     }),
-    audience: process.env.REACT_APP_URL,
+    audience: process.env.REACT_APP_API_ID,
     issuer: process.env.REACT_APP_AUTH0,
     algorithms: ['RS256']
 });

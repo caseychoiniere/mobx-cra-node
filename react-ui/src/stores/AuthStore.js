@@ -31,6 +31,22 @@ export class AuthStore {
         return accessToken;
     }
 
+    @action getDDSApiToken() {
+        api.getDDSApiToken()
+            .then()
+            .then(response => response.json())
+            .then((json) => {
+                api.getProjects(json.api_token)
+                    .then()
+                    .then(response => response.json())
+                    .then((json) => {
+                        console.log(json.results);
+                    }).catch(ex =>MainStore.handleErrors(ex))
+            }).catch((er) => {
+                MainStore.handleErrors(er)
+            })
+    }
+
     @action getProfile() {
         const accessToken = this.getAccessToken();
         this.auth0.client.userInfo(accessToken, (err, profile) => {

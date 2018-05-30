@@ -7,7 +7,7 @@ const api = {
         return fetch(`${config.APP_URL}api/status`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
-    getApiToken: () => {
+    getDDSApiToken: () => {
         return fetch(`${config.APP_URL}api/agent-token`, getFetchParams('get', 'Bearer ' +localStorage.getItem('access_token')))
     },
 
