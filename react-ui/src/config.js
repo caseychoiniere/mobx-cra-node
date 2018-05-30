@@ -6,7 +6,7 @@ const agentKey = !process.env.NODE_ENV ? env.REACT_APP_AGENT_KEY : process.env.R
 
 const appUrl = !process.env.NODE_ENV ? env.REACT_APP_URL : process.env.REACT_APP_URL;
 
-const auth0Url = !process.env.NODE_ENV ? env.REACT_APP_AUTH0 : process.env.REACT_APP_AUTH0;
+const auth0Url = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_AUTH_0_DOMAIN : process.env.REACT_APP_CLIENT_AUTH_0_DOMAIN;
 
 let clientID = !process.env.NODE_ENV ? env.REACT_APP_CLIENT_ID : process.env.REACT_APP_CLIENT_ID;
 
@@ -20,7 +20,7 @@ const redirectUri = process.env.NODE_ENV !== 'production' ? 'http://localhost:30
 
 const userKey = !process.env.NODE_ENV ? env.REACT_APP_AGENT_USER_KEY : process.env.REACT_APP_AGENT_USER_KEY;
 
-export const config = {
+exports.config = {
     AGENT_KEY: agentKey,
     APP_URL: appUrl,
     AUTH0_URL: auth0Url,
