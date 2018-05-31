@@ -40,10 +40,6 @@ export default () => (
             <Container fluid className="mainContainer">
                 <Switch>
                     <LoginRoute path='/login' component={Login} />
-                    {/*<Route path="/login" render={(props) => {*/}
-                        {/*handleAuthentication(props);*/}
-                        {/*return !AuthStore.isAuthenticated() ? <Login {...props} /> : <Redirect to="/" />*/}
-                    {/*}}/>*/}
                     <PrivateRoute exact path="/" component={Home} />
                     <Redirect to="/" />
                 </Switch>
