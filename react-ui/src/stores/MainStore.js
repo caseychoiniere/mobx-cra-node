@@ -28,7 +28,8 @@ export class MainStore {
             .then(response => response.json())
             .then((json) => {
                 console.log(json)
-            }).catch(er => this.handleErrors(er))
+            })
+            .catch(er => this.handleErrors(er))
     }
 
     @action toggleLoading() {
